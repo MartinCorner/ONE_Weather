@@ -1,0 +1,24 @@
+api:
+    heweather   生活服务等其他数据
+    https://api.heweather.com/x3/weather?cityid=CN101020100&key=84865ed822e74a1d8583eaf7e535976c
+    
+    openweathermap  预报数据
+    http://api.openweathermap.org/data/2.5/forecast?q=shanghai,china&mode=json&appid=bd82977b86bf27fb59a04b61b657fb6f
+    
+src/lib:
+    material-refresh
+    materialize
+    
+ui:
+    http://www.htmleaf.com/css3/css3donghua/201506272117.html
+    http://www.zcool.com.cn/work/ZMTMzOTQ2NDA=.html
+    
+wallpaper:
+    <img src="http://johnzhang.cn/bing.php" alt="Bing每日图片">
+    
+chart-data:
+    echarts
+
+    
+    
+1 预留多个数据源，第一项查询失败时切换第二项数据源查询

@@ -1,0 +1,75 @@
+body{
+    background-color: #f5d19f;
+}
+.col-50{
+    width: 50%;
+}
+.left-panel{
+    float: left;
+}
+.right-panel{
+    float: right;
+}
+.card-panel {
+    transition: box-shadow .25s;
+    padding: 20px;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.now_weather .aqi.aqi_1{
+    background-color: #00c853;
+}
+.now_weather .aqi.aqi_2{
+    background-color: #ffeb3b;
+}
+.now_weather .aqi.aqi_3{
+    background-color: #fb8c00;
+}
+.now_weather .aqi.aqi_4{
+    background-color: #ff1744;
+}
+.now_weather .aqi.aqi_5{
+    background-color: #ab47bc;
+}
+.now_weather .aqi.aqi_6{
+    background-color: #880e4f;
+}
+.now_weather .aqi{
+    width: 38px;
+    height: 16px;
+    text-align: center;
+    padding: 4px 0 2px 0;
+    float: left;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+}
+.now_weather .cond_text{
+    float: left;
+}
+.now_weather .tmp{
+    font-size: 48px;
+    float: right;
+}
+.now_weather .now_temperature{
+    float: right;
+}
+.now_weather .now_temperature .max_temperature,
+.now_weather .now_temperature .min_temperature{
+    float: left;
+}
+
+.daily_forecast #canvas {
+    overflow: hidden;
+}
+/*
+.daily_forecast #canvas > div{
+    top: -36px;
+    left: -43px;
+}*/
+
+.hourly_forecast {
+    overflow-x: scroll;
+}
