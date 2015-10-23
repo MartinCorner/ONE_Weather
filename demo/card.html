@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <style>
+            .card{
+                width: 100%;
+                height: 200px;
+                transition: transform 1s linear;
+                overflow: hidden;
+            }
+            .circle{
+                background-color: #ccc;
+                border-radius: 100%;
+                width: 30px;
+                height: 30px;
+                transform: translateY(-100px);
+                transition: transform 1s linear;
+            }
+        </style>
+        <script type="text/javascript" src="../html/script/jquery-1.11.3.min.js"></script>
+        <script>
+            window.transition_lock = false;
+            jQuery(document).ready(function(){
+                $('.card').click(function(event){
+                    var date_num = parseInt($(event.currentTarget).attr('data-num')),
+                        open_num = parseInt($('.open.card[data-num]').attr('data-num'));
+                    
+                    $('.card[data-num='+date_num+']').bind('webkitTransitionEnd',function(){
+                        window.setTimeout(function(){
+                            window.transition_lock = false;
+                        },500);
+                    });
+                    if(!window.transition_lock){
+                        for(var i=2;i<$('.card[data-num]').length+1;i++){
+                            $('.card[data-num]').removeClass('open');
+                            $('.card[data-num='+date_num+']').addClass('open');
+    //                        console.log($('.card[data-num='+[i]+']'));
+    //                        if($('.card[data-num='+(date_num-1)+']').hasClass('open')){
+                            if(i<=date_num){
+                                window.transition_lock = true;
+                                $('.card[data-num='+i+']').css('transform','translateY(-'+100*(i-1)+'px)');
+                                $('.card[data-num='+(i-1)+'] .circle').css('transform','translateY(100px)');
+//                                window.setTimeout(function(){
+                                    $('.card[data-num='+date_num+'] .circle').css('transform','translateY(0px)');
+//                                },170);
+                            }
+                            if(i>date_num){
+                                window.transition_lock = true;
+                                $('.card[data-num='+i+']').css('transform','translateY(-'+100*(i-2)+'px)');
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="card" data-num=1 style="background-color: #ffee6b;transform: translateY(0px);"><div class="circle" style="transform: translateY(0px)"></div></div>
+        <div class="card" data-num=2 style="background-color: #7cff6b;transform: translateY(-0px);"><div class="circle"></div></div>
+        <div class="card" data-num=3 style="background-color: #6bc6ff;transform: translateY(-100px);"><div class="circle"></div></div>
+        <div class="card open" data-num=4 style="background-color: #ff6bd7;transform: translateY(-200px);"><div class="circle"></div></div>
+    </body>
+</html>

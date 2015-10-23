@@ -38,6 +38,7 @@ $(document).ready(function(){
                 ONE_WEATHER.weather_data.now = result['HeWeather data service 3.0'][0].now;
                 ONE_WEATHER.weather_data.daily_forecast = result['HeWeather data service 3.0'][0].daily_forecast;
                 ONE_WEATHER.weather_data.hourly_forecast = result['HeWeather data service 3.0'][0].hourly_forecast;
+                console.log('HeWeather data:');
                 console.log(result['HeWeather data service 3.0'][0]);
                 
                 ONE_WEATHER.isSync = true;
@@ -53,6 +54,7 @@ $(document).ready(function(){
 //                ONE_WEATHER.weather_data.openweathermap_list = {};
                 ONE_WEATHER.weather_data.openweathermap_list = result.list;
                 
+                console.log('openweathermap data:');
                 console.log(result);
                 ONE_WEATHER.send_heweather();
             }
@@ -77,7 +79,7 @@ $(document).ready(function(){
 //        ONE_WEATHER.weather_data = window.ONE_WEATHER_test;
         if(ONE_WEATHER.isSync == false){
 //            ONE_WEATHER.send_openweathermap('shanghai,china');
-            ONE_WEATHER.send_openweathermap('Rotterdam, NL');
+            ONE_WEATHER.send_openweathermap('shanghai, CN');
         }else{
             
             localStorage['ONE_WEATHER-weather_data'] = JSON.stringify(ONE_WEATHER.weather_data);
@@ -124,11 +126,22 @@ $(document).ready(function(){
             if(has_rain)
                 daily_forecast_rain[i] = ONE_WEATHER.weather_data.openweathermap_list[i].rain['3h'];
         }
-        for(var i=0;i<ONE_WEATHER.weather_data.daily_forecast.length;i++){
-            $('.daily_forecast > div:nth-child('+i+') .date').html(ONE_WEATHER.weather_data.daily_forecast[i].cond.date);
-            $('.daily_forecast > div:nth-child('+i+') img').attr('src','http://files.heweather.com/cond_icon/'+ONE_WEATHER.weather_data.daily_forecast[i].cond.code_d+'.png');
-            $('.daily_forecast > div:nth-child('+i+') .max_temperature').html(ONE_WEATHER.weather_data.daily_forecast[i].tmp.max+'℃');
-            $('.daily_forecast > div:nth-child('+i+') .min_temperature').html(ONE_WEATHER.weather_data.daily_forecast[i].tmp.min+'℃');
+//        for(var i=0;i<ONE_WEATHER.weather_data.daily_forecast.length;i++){
+//            $('.daily_forecast > div:nth-child('+i+') .date').html(ONE_WEATHER.weather_data.daily_forecast[i].cond.date);
+//            $('.daily_forecast > div:nth-child('+i+') img').attr('src','http://files.heweather.com/cond_icon/'+ONE_WEATHER.weather_data.daily_forecast[i].cond.code_d+'.png');
+//            $('.daily_forecast > div:nth-child('+i+') .max_temperature').html(ONE_WEATHER.weather_data.daily_forecast[i].tmp.max+'℃');
+//            $('.daily_forecast > div:nth-child('+i+') .min_temperature').html(ONE_WEATHER.weather_data.daily_forecast[i].tmp.min+'℃');
+//        }
+        var daily_forecast_num = 1;
+        for(var i=1;i<ONE_WEATHER.weather_data.openweathermap_list.length;i++){
+            if(i%8 == 0){
+//                console.log(ONE_WEATHER.weather_data.openweathermap_list[i]);
+                $('.daily_forecast > .daily_forecast_card:nth-child('+daily_forecast_num+') .date').html(ONE_WEATHER.weather_data.openweathermap_list[i].dt_txt.split(' ')[0]);
+                $('.daily_forecast > .daily_forecast_card:nth-child('+daily_forecast_num+') .main_weather').html(ONE_WEATHER.weather_data.openweathermap_list[i].weather[0].main);
+                $('.daily_forecast > .daily_forecast_card:nth-child('+daily_forecast_num+') .max_temperature').html(parseInt(ONE_WEATHER.weather_data.openweathermap_list[i].main.temp_max-273.15)+'℃');
+                $('.daily_forecast > .daily_forecast_card:nth-child('+daily_forecast_num+') .min_temperature').html(parseInt(ONE_WEATHER.weather_data.openweathermap_list[i].main.temp_min-273.15)+'℃');
+                daily_forecast_num++;
+            }
         }
         
         var myChart = echarts.init($('.hourly_forecast #canvas')[0]);
@@ -203,6 +216,37 @@ $(document).ready(function(){
         
         myChart.setOption(option);    
     
+        
+        $('.daily_forecast .daily_forecast_card').click(function(event){
+            var date_num = parseInt($(event.currentTarget).attr('data-num')),
+                open_num = parseInt($('.daily_forecast .open.daily_forecast_card[data-num]').attr('data-num'));
+
+            $('.daily_forecast .daily_forecast_card[data-num='+date_num+']').bind('webkitTransitionEnd',function(){
+                window.setTimeout(function(){
+                    window.transition_lock = false;
+                },500);
+            });
+            if(!window.transition_lock){
+                for(var i=2;i<$('.daily_forecast .daily_forecast_card[data-num]').length+1;i++){
+                    $('.daily_forecast .daily_forecast_card[data-num]').removeClass('open');
+                    $('.daily_forecast .daily_forecast_card[data-num='+date_num+']').addClass('open');
+//                        console.log($('.daily_forecast .daily_forecast_card[data-num='+[i]+']'));
+//                        if($('.daily_forecast .daily_forecast_card[data-num='+(date_num-1)+']').hasClass('open')){
+                    if(i<=date_num){
+                        window.transition_lock = true;
+                        $('.daily_forecast .daily_forecast_card[data-num='+i+']').css('transform','translateY(-'+100*(i-1)+'px)');
+                        $('.daily_forecast .daily_forecast_card[data-num='+(i-1)+'] .circle').css('transform','translateY(100px)');
+//                                window.setTimeout(function(){
+                            $('.daily_forecast .daily_forecast_card[data-num='+date_num+'] .circle').css('transform','translateY(0px)');
+//                                },170);
+                    }
+                    if(i>date_num){
+                        window.transition_lock = true;
+                        $('.daily_forecast .daily_forecast_card[data-num='+i+']').css('transform','translateY(-'+100*(i-2)+'px)');
+                    }
+                }
+            }
+        });
     }
     
     ONE_WEATHER.init = function(){
