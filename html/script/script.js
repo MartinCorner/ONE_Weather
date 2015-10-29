@@ -64,7 +64,7 @@ $(document).ready(function(){
     ONE_WEATHER.get_weather_data = function(){
         var flag = false;
         if(localStorage['ONE_WEATHER-weather_data'] && localStorage['ONE_WEATHER-update_date']){
-            if((new Date()).getTime() - localStorage['ONE_WEATHER-update_date'] <= 86400000 && localStorage['ONE_WEATHER-weather_data']!=""){       //exceed 24 hours
+            if((new Date()).getTime() - localStorage['ONE_WEATHER-update_date'] <= 43200000 && localStorage['ONE_WEATHER-weather_data']!=""){       //exceed 24 hours
                 ONE_WEATHER.weather_data = JSON.parse(localStorage['ONE_WEATHER-weather_data']);
                 ONE_WEATHER.load_weather_data();
             }else{
