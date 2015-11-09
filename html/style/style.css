@@ -10,6 +10,11 @@ body{
 .right-panel{
     float: right;
 }
+.title-panel{
+    border-bottom: 1px #000 solid;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
 .card-panel {
     transition: box-shadow .25s;
     padding: 20px;
@@ -61,10 +66,17 @@ body{
     float: left;
 }
 
-.daily_forecast #canvas {
-    overflow: hidden;
+.hourly_forecast {
+    overflow-x: scroll;
+}
+.hourly_forecast .canvas-panel{
+/*    overflow: hidden;*/
 }
 
+.daily_forecast{
+    height: 500px;
+    overflow: hidden;
+}
 .daily_forecast .daily_forecast_card{
     width: 100%;
     height: 200px;
@@ -79,8 +91,20 @@ body{
     transform: translateY(-100px);
     transition: transform 1s linear;
 }
-.hourly_forecast {
-    overflow-x: scroll;
+
+.detail_forecast .sun-panel{
+    overflow: hidden;
+    height: 74px;
+    width: 264px;
+    border-bottom: 1px #000 solid;
+    margin-bottom: 30px;
+}
+.detail_forecast .sun-panel .sun-bg{
+    width: 264px;
+    height: 264px;
+    border-radius: 100%;
+    border: 1px #000 dashed;
+    position: relative;
 }
 
 
@@ -138,3 +162,77 @@ body{
   100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
 }
 
+
+
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-1,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-1,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-1,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-1 {
+        -webkit-animation-duration: 4s;
+        -moz-animation-duration: 4s;
+        -o-animation-duration: 4s;
+        animation-duration: 4s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-2,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-2,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-2,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-2 {
+        -webkit-animation-duration: 3s;
+        -moz-animation-duration: 3s;
+        -o-animation-duration: 3s;
+        animation-duration: 3s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-3,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-3,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-3,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-3 {
+        -webkit-animation-duration: 2.1s;
+        -moz-animation-duration: 2.1s;
+        -o-animation-duration: 2.1s;
+        animation-duration: 2.1s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-4,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-4,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-4,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-4 {
+        -webkit-animation-duration: 1.885s;
+        -moz-animation-duration: 1.885s;
+        -o-animation-duration: 1.885s;
+        animation-duration: 1.885s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-5,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-5,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-5,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-5 {
+        -webkit-animation-duration: 1.668s;
+        -moz-animation-duration: 1.668s;
+        -o-animation-duration: 1.668s;
+        animation-duration: 1.668s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-6,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-6,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-6,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-6 {
+        -webkit-animation-duration: 1.234s;
+        -moz-animation-duration: 1.234s;
+        -o-animation-duration: 1.234s;
+        animation-duration: 1.234s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-7,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-7,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-7,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-7 {
+        -webkit-animation-duration: 1.017s;
+        -moz-animation-duration: 1.017s;
+        -o-animation-duration: 1.017s;
+        animation-duration: 1.017s
+    }
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfan.bladespeed-8,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfan.bladespeed-8,
+    .yom-weather-barometer.yom-app .bd .in .poles .bigfanblur.bladespeed-8,
+    .yom-weather-barometer.yom-app .bd .in .poles .smallfanblur.bladespeed-8 {
+        -webkit-animation-duration: .8s;
+        -moz-animation-duration: .8s;
+        -o-animation-duration: .8s;
+        animation-duration: .8s
+    }

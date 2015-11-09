@@ -247,6 +247,15 @@ $(document).ready(function(){
                 }
             }
         });
+        
+        $('.detail_forecast #vis').html("能见度： "+ONE_WEATHER.weather_data.now.vis+" km");
+        $('.detail_forecast #pres').html("气压： "+ONE_WEATHER.weather_data.now.pres+"hPa");
+        $('.detail_forecast #wind_dir').html(ONE_WEATHER.weather_data.now.wind.dir);
+        $('.detail_forecast #wind_spd').html(ONE_WEATHER.weather_data.now.wind.spd+"km/h");
+        $('.detail_forecast #hum').html("湿度： "+ONE_WEATHER.weather_data.now.hum+"％");
+        $('.detail_forecast #fl').html("体感温度： "+ONE_WEATHER.weather_data.now.fl+"℃");
+        $('.detail_forecast #astro_sr').html("日出： "+ONE_WEATHER.weather_data.daily_forecast[0].astro.sr);
+        $('.detail_forecast #astro_ss').html("日落： "+ONE_WEATHER.weather_data.daily_forecast[0].astro.ss);
     }
     
     ONE_WEATHER.init = function(){
