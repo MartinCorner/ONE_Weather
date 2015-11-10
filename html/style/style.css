@@ -106,6 +106,21 @@ body{
     border: 1px #000 dashed;
     position: relative;
 }
+.detail_forecast .sun-panel .sun-container{
+    height: 75px;
+    width: 237px;
+    padding: 0 10px;
+    position: absolute;
+}
+.detail_forecast .sun-panel .sun-container #sun{
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #FFEB00;
+    bottom: -69px;
+    left: 0%;
+}
 
 
 

@@ -4,6 +4,7 @@ $(document).ready(function(){
     ONE_WEATHER.weather_data = {};
     ONE_WEATHER.isSync = false;
     ONE_WEATHER.tools = {};
+    ONE_WEATHER.tools.nowDate;
     
     ONE_WEATHER.tools.utcToLocal = function(utcTime) { 
         if(utcTime==='0000-00-00 00:00:00' || utcTime===null || utcTime==='' || utcTime===undefined) 
@@ -24,6 +25,12 @@ $(document).ready(function(){
     ONE_WEATHER.tools.preZero = function(str) { 
         return str.toString().length < 2 ? '0'+str : str; 
     } 
+    ONE_WEATHER.tools.getNowDate = function(){
+        if(ONE_WEATHER.tools.nowDate == undefined){
+            ONE_WEATHER.tools.nowDate = new Date();
+        }
+        return ONE_WEATHER.tools.nowDate;
+    }
     
     ONE_WEATHER.send_heweather = function(){
         $.post(
@@ -64,7 +71,7 @@ $(document).ready(function(){
     ONE_WEATHER.get_weather_data = function(){
         var flag = false;
         if(localStorage['ONE_WEATHER-weather_data'] && localStorage['ONE_WEATHER-update_date']){
-            if((new Date()).getTime() - localStorage['ONE_WEATHER-update_date'] <= 43200000 && localStorage['ONE_WEATHER-weather_data']!=""){       //exceed 24 hours
+            if((ONE_WEATHER.tools.getNowDate()).getTime() - localStorage['ONE_WEATHER-update_date'] <= 43200000 && localStorage['ONE_WEATHER-weather_data']!=""){       //exceed 24 hours
                 ONE_WEATHER.weather_data = JSON.parse(localStorage['ONE_WEATHER-weather_data']);
                 ONE_WEATHER.load_weather_data();
             }else{
@@ -83,7 +90,7 @@ $(document).ready(function(){
         }else{
             
             localStorage['ONE_WEATHER-weather_data'] = JSON.stringify(ONE_WEATHER.weather_data);
-            localStorage['ONE_WEATHER-update_date'] = (new Date()).getTime();
+            localStorage['ONE_WEATHER-update_date'] = (ONE_WEATHER.tools.getNowDate()).getTime();
             ONE_WEATHER.get_weather_data();
         }
     }
@@ -256,9 +263,22 @@ $(document).ready(function(){
         $('.detail_forecast #fl').html("体感温度： "+ONE_WEATHER.weather_data.now.fl+"℃");
         $('.detail_forecast #astro_sr').html("日出： "+ONE_WEATHER.weather_data.daily_forecast[0].astro.sr);
         $('.detail_forecast #astro_ss').html("日落： "+ONE_WEATHER.weather_data.daily_forecast[0].astro.ss);
+        
+        sunPostion();
+        function sunPostion(){
+            var sr_suntime = after_time(ONE_WEATHER.weather_data.daily_forecast[0].astro.sr.split(":")[0], ONE_WEATHER.weather_data.daily_forecast[0].astro.sr.split(":")[1]);
+            var ss_suntime = after_time(ONE_WEATHER.weather_data.daily_forecast[0].astro.ss.split(":")[0], ONE_WEATHER.weather_data.daily_forecast[0].astro.ss.split(":")[1]);
+            var suntime = ss_suntime-sr_suntime;
+            var aftertime = after_time(ONE_WEATHER.tools.getNowDate().getHours(),ONE_WEATHER.tools.getNowDate().getMinutes())-sr_suntime;
+            $('.detail_forecast .sun-panel .sun-container #sun').css('left',(aftertime/suntime)*100+'%');
+        }
+        function after_time(now_hours, now_minutes){
+            return (parseInt(now_hours)*60)+parseInt(now_minutes);
+        }
     }
     
     ONE_WEATHER.init = function(){
+        ONE_WEATHER.tools.getNowDate();
         ONE_WEATHER.get_weather_data();
 
         $('#button').bind('click',function(){
