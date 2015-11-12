@@ -270,11 +270,40 @@ $(document).ready(function(){
             var ss_suntime = after_time(ONE_WEATHER.weather_data.daily_forecast[0].astro.ss.split(":")[0], ONE_WEATHER.weather_data.daily_forecast[0].astro.ss.split(":")[1]);
             var suntime = ss_suntime-sr_suntime;
             var aftertime = after_time(ONE_WEATHER.tools.getNowDate().getHours(),ONE_WEATHER.tools.getNowDate().getMinutes())-sr_suntime;
-            $('.detail_forecast .sun-panel .sun-container #sun').css('left',(aftertime/suntime)*100+'%');
+//            $('.detail_forecast .sun-panel .sun-container #sun').css('left',(aftertime/suntime)*100+'%');
+            
+            var times = ((aftertime/suntime)*180)-90;
+            var a = 130,
+                b = 130,
+                r = 133;
+            var rad = (2 * Math.PI / 360) * 1 * times;
+            var X = a + Math.sin(rad) * r;
+            var Y = b - Math.cos(rad) * r;
+            $('.detail_forecast .sun-panel .sun-container #sun').css('left',X+'px').css('top',Y+'px');
         }
         function after_time(now_hours, now_minutes){
             return (parseInt(now_hours)*60)+parseInt(now_minutes);
         }
+        
+        if(ONE_WEATHER.weather_data.now.wind.spd < 1){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-1";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 11){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-2";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 28){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-3";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 49){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-4";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 74){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-5";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 102){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-6";
+        }else if(ONE_WEATHER.weather_data.now.wind.spd < 117){
+            $('.detail_forecast #windmill')[0].className = "bladespeed-7";
+        }else{
+            $('.detail_forecast #windmill')[0].className = "bladespeed-8";
+        }
+        
+            
     }
     
     ONE_WEATHER.init = function(){
